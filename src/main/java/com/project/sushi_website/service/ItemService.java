@@ -3,6 +3,7 @@ package com.project.sushi_website.service;
 import com.project.sushi_website.model.DTO.ItemDTO;
 import com.project.sushi_website.model.Item;
 import com.project.sushi_website.repository.ItemRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -19,12 +20,16 @@ public class ItemService {
         this.itemRepository = itemRepository;
     }
 
+    public List<ItemDTO> getAllActiveItems() {
+        List<Item> items = new ArrayList<>();
+        itemRepository.findAll().forEach(items::add);
+        return items.stream().map(this::convertToDTO).filter(ItemDTO::isActive).collect(Collectors.toList());
+    }
     public List<ItemDTO> getAllItems() {
         List<Item> items = new ArrayList<>();
         itemRepository.findAll().forEach(items::add);
         return items.stream().map(this::convertToDTO).collect(Collectors.toList());
     }
-
     public List<ItemDTO> get4PopularItems() {
         List<Item> items = new ArrayList<>();
         itemRepository.findAll().forEach(items::add);
@@ -32,6 +37,7 @@ public class ItemService {
                 .sorted((item1, item2) -> item2.getNumOfOrders().compareTo(item1.getNumOfOrders()))
                 .limit(4)
                 .map(this::convertToDTO)
+                .filter(ItemDTO::isActive)
                 .collect(Collectors.toList());
     }
 
@@ -48,8 +54,11 @@ public class ItemService {
         return itemRepository.save(menuItem);
     }
 
-    public void deleteItem(Integer id) {
-        itemRepository.deleteById(id);
+    @Transactional
+    public void deleteItem(Integer itemId) {
+        Item item = itemRepository.findById(itemId)
+                .orElseThrow(() -> new IllegalArgumentException("Item not found with id: " + itemId));
+        itemRepository.delete(item);
     }
 
     public ItemDTO convertToDTO(Item menuItem) {
@@ -58,7 +67,17 @@ public class ItemService {
         dto.setName(menuItem.getName());
         dto.setDescription(menuItem.getDescription());
         dto.setPrice(menuItem.getPrice());
+        dto.setCategory(menuItem.getCategory().getName());
+        dto.setImageUrl(menuItem.getImageUrl());
+        dto.setNumOfOrders(menuItem.getNumOfOrders());
+        dto.setActive(menuItem.isActive());
         return dto;
     }
 
+    public void deactivateItem(Integer itemId) {
+        Item item = itemRepository.findById(itemId)
+                .orElseThrow(() -> new NoSuchElementException("ItemOrder not found with id: " + itemId));
+        item.setActive(!item.isActive());
+        itemRepository.save(item);
+    }
 }

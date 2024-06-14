@@ -30,7 +30,7 @@
       <form th:action="@{'/updateQuantity/' + ${itemOrder.id}}" method="post">
         <label th:for="'quantity-' + ${itemOrder.id}"></label>
         <label>
-          <input type="number" th:id="'quantity-' + ${itemOrder.id}" name="quantity" th:value="${itemOrder.quantity}">
+          <input type="number" th:id="'quantity-' + ${itemOrder.id}" name="quantity" th:value="${itemOrder.quantity}" min="1">
         </label>
         <button type="submit">Update</button>
       </form>

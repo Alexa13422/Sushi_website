@@ -24,9 +24,10 @@
                      alt="Checkout" class="checkout-image img-fluid ml-2" />
             </a>
             <div th:if="${customer != null}">
-<!--                <div th:if="${customer.isAdmin}">-->
-<!--                    <a href="/admin/new-item" class="btn btn-warning">Create New Item</a>-->
-<!--                </div>-->
+                <div th:if="${customer.isAdmin}">
+                    <a href="/admin/new-item" class="btn btn-warning">Create New Item</a>
+                    <a href="/admin/dashboard" class="btn btn-info">View Statistics</a>
+                </div>
             </div>
             <div th:if="${customer == null}">
                 <a href="/auth/registration" class="btn btn-primary">Register</a>
@@ -47,7 +48,7 @@
                         <p th:text="${item.description}" class="offer-description">Offer Description</p>
                         <p th:text="'$' + ${item.price}" class="offer-price">Offer Price</p>
                     </div>
-                    <img th:src="@{'/images/sushi/' + ${item.id} + '.jpg'}" alt="Offer Image" class="offer-image img-fluid">
+                    <img th:src="@{'/images/sushi/' + ${item.imageUrl}}" alt="Offer Image" class="offer-image img-fluid">
                     <form th:action="@{/addToCart}" method="post">
                         <input type="hidden" name="itemId" th:value="${item.id}">
                         <input type="hidden" name="currentUrl" th:value="${request.getRequestURI()}">

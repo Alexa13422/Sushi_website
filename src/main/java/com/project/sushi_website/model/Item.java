@@ -16,8 +16,9 @@ public class Item {
     @Column(name = "item_name")
     private String name;
 
-    @Column(name = "Category_Id")
-    private Integer categoryId;
+    @ManyToOne(cascade = {CascadeType.PERSIST})
+    @JoinColumn(name = "category_id" )
+    private Category category;
 
     @Column(name = "description")
     private String description;
@@ -28,18 +29,20 @@ public class Item {
     @Column(name = "price")
     private BigDecimal price;
 
-    @Column(name = "active")
-    private String active;
-
     @Column(name = "num_of_orders")
     private Integer numOfOrders = 0;
 
-    @OneToMany(mappedBy = "item")
+    @OneToMany(mappedBy = "item", cascade = CascadeType.ALL)
     private List<ItemOrder> itemOrders;
 
-    private String image_url;
+    private String imageUrl;
+    @Column(name = "is_active")
+    private boolean isActive;
 
-    // Getters and Setters
+    public Item() {
+        setActive(true);
+    }
+
     public Integer getId() {
         return id;
     }
@@ -56,12 +59,12 @@ public class Item {
         this.name = name;
     }
 
-    public Integer getCategoryId() {
-        return categoryId;
+    public Category getCategory() {
+        return category;
     }
 
-    public void setCategoryId(Integer categoryId) {
-        this.categoryId = categoryId;
+    public void setCategory(Category categoryId) {
+        this.category = categoryId;
     }
 
     public String getDescription() {
@@ -88,14 +91,6 @@ public class Item {
         this.price = price;
     }
 
-    public String getActive() {
-        return active;
-    }
-
-    public void setActive(String active) {
-        this.active = active;
-    }
-
     public Integer getNumOfOrders() {
         return numOfOrders;
     }
@@ -110,5 +105,21 @@ public class Item {
 
     public void setItemOrders(List<ItemOrder> itemOrders) {
         this.itemOrders = itemOrders;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
     }
 }

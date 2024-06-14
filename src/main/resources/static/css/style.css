@@ -169,3 +169,13 @@ body {
 .text-white {
     color: #fff !important;
 }
+.scrollable-table {
+    overflow-x: auto;
+    max-width: 100%;
+}
+
+.scrollable-table table {
+    min-width: 1000px;
+    width: 100%;
+    table-layout: fixed;
+}

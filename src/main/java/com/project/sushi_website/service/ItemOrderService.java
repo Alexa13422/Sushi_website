@@ -4,6 +4,7 @@ import com.project.sushi_website.model.DTO.ItemOrderDTO;
 import com.project.sushi_website.model.ItemOrder;
 import com.project.sushi_website.repository.ItemOrderRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -47,7 +48,7 @@ public class ItemOrderService {
     public static List<ItemOrderDTO> toDtoList(List<ItemOrder> itemOrders) {
         return itemOrders.stream().map(ItemOrderService::toDto).collect(Collectors.toList());
     }
-
+    @Transactional
     public void delete(ItemOrder itemOrder) {
         itemOrderRepository.delete(itemOrder);
     }

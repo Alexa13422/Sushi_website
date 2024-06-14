@@ -78,11 +78,6 @@ public class AuthenticationController {
         }
         try {
             Customer authenticatedUser = authenticationService.authenticate(customerDTO);
-            if (authenticatedUser == null) {
-                mav.setViewName("login");
-                mav.addObject("message", "Incorrect password.");
-                return mav;
-            }
             String jwtToken = jwtService.generateToken(authenticatedUser);
 
             // Set the JWT token in a cookie
@@ -96,7 +91,7 @@ public class AuthenticationController {
             return mav;
         } catch (Exception ex) {
             mav.setViewName("login");
-            mav.addObject("message", "An error occurred during login.");
+            mav.addObject("message", ex.getMessage());
             return mav;
         }
     }

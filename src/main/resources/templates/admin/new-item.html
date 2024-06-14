@@ -2,13 +2,28 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create New Item</title>
+</head>
 <body>
 <div class="container mt-5" layout:fragment="content">
     <h2>Create New Item</h2>
-    <form th:action="@{/admin/new-item}" th:object="${item}" method="post">
+    <form th:action="@{/admin/new-item}" th:object="${item}" method="post" enctype="multipart/form-data">
         <div class="form-group">
             <label for="name">Name</label>
             <input type="text" id="name" th:field="*{name}" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="category">Category</label>
+            <select id="category" th:field="*{category.id}" class="form-control">
+                <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}"></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="ingredients">ingredients</label>
+            <input type="text" id="ingredients" th:field="*{ingredients}" class="form-control" required>
         </div>
         <div class="form-group">
             <label for="description">Description</label>
@@ -16,11 +31,11 @@
         </div>
         <div class="form-group">
             <label for="price">Price</label>
-            <input type="number" id="price" th:field="*{price}" step="0.01" class="form-control" required>
+            <input type="number" id="price" th:field="*{price}" step="0.01" class="form-control" min="5" required>
         </div>
         <div class="form-group">
-            <label for="image">Image URL</label>
-            <input type="text" id="image" th:field="*{imageUrl}" class="form-control">
+            <label for="image">Image File</label>
+            <input type="file" id="image" name="image" class="form-control" required>
         </div>
         <button type="submit" class="btn btn-primary">Create Item</button>
     </form>

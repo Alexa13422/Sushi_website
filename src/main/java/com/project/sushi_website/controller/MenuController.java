@@ -2,7 +2,6 @@ package com.project.sushi_website.controller;
 
 import com.project.sushi_website.model.Customer;
 import com.project.sushi_website.model.DTO.ItemDTO;
-import com.project.sushi_website.model.Item;
 import com.project.sushi_website.service.CustomerService;
 import com.project.sushi_website.service.ItemService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -16,7 +15,6 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/menu")
-@SessionAttributes("customer")
 public class MenuController {
 
     private final ItemService itemService;
@@ -29,7 +27,7 @@ public class MenuController {
 
     @GetMapping
     public String getAllMenuItems(Model model, HttpServletRequest request) {
-        List<ItemDTO> items = itemService.getAllItems();
+        List<ItemDTO> items = itemService.getAllActiveItems();
         model.addAttribute("items", items);
         model.addAttribute("request", request);
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -39,30 +37,5 @@ public class MenuController {
             model.addAttribute("customer", customer);
         }
         return "menu";
-    }
-
-    @GetMapping("/{id}")
-    public String getMenuItemById(@PathVariable("id") Integer id, Model model) {
-        Item menuItem = itemService.getItemById(id);
-        return "menuItemDetail";
-    }
-
-    @GetMapping("/new")
-    public String showNewMenuItemForm(Model model) {
-        Item menuItem = new Item();
-        model.addAttribute("menuItem", menuItem);
-        return "newMenuItem";
-    }
-
-    @PostMapping
-    public String saveMenuItem(@ModelAttribute("menuItem") Item menuItem) {
-        itemService.save(menuItem);
-        return "redirect:/menuItems";
-    }
-
-    @GetMapping("/delete/{id}")
-    public String deleteMenuItem(@PathVariable("id") Integer id) {
-        itemService.deleteItem(id);
-        return "redirect:/menuItems";
     }
 }
