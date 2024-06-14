@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<body>
+<div layout:fragment="content">
+  <div class="container mt-5">
+    <div th:if="${message != null}" class="alert alert-success alert-dismissible fade show" role="alert">
+      <span th:text="${message}"></span>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  </div>
+  <div class="container">
+    <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/TEMP/70885b70b309ab05de674c89fa86c6bffc87624fe776c252c9297436fba8d12a?apiKey=4ec25aefa19b41c1b0a08d4357b47526&"
+         alt="Hero image" class="hero-image-smaller" />
+    <div th:replace="~{fragments :: offerContainer}"></div>
+  </div>
+</div>
+</body>
+</html>

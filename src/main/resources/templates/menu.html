@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+
+<body>
+<main class="main-content mt-5" layout:fragment="content">
+  <div th:if="${message != null}" class="alert alert-success alert-dismissible fade show" role="alert">
+    <span th:text="${message}"></span>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <h1 class="menu-title text-center mb-4 text-white">MENU</h1>
+  <section class="filters-section p-4 bg-light rounded mb-5">
+    <div class="row">
+      <div class="col-md-4">
+        <form class="search-container">
+          <label for="searchInput" class="search-title">Search</label>
+          <div class="input-group mt-2">
+            <div class="input-group-prepend">
+              <span class="input-group-text bg-white">
+                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/eb24ed642213c596572a68bfb4b518ecbe321f5fb33b43e09fadd9662de7f9f0?apiKey=4ec25aefa19b41c1b0a08d4357b47526&" alt="Search" class="search-icon" style="width: 20px;"/>
+              </span>
+            </div>
+            <input type="text" id="searchInput" class="form-control" placeholder="Search" aria-label="Search">
+          </div>
+        </form>
+      </div>
+      <div class="col-md-4">
+        <div class="filters-group mt-4 mt-md-0">
+          <div class="filter-title">Filters</div>
+          <label for="categorySelect" class="filter-category mt-2">Category:</label>
+          <select id="categorySelect" class="form-control mt-2">
+            <option value="">Choose</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <form class="price-filter mt-4 mt-md-0">
+          <label for="priceFrom" class="price-title">Price:</label>
+          <div class="price-range d-flex gap-2 mt-2">
+            <input type="number" id="priceFrom" class="form-control" placeholder="From">
+            <input type="number" id="priceTo" class="form-control" placeholder="To">
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="sort-section mt-4">
+      <div class="sort-title">Sort</div>
+      <select class="form-control mt-2">
+        <option value="">Choose</option>
+      </select>
+    </div>
+    <div class="apply-button text-center mt-4">
+      <button class="btn btn-primary">Apply</button>
+    </div>
+  </section>
+  <div th:replace="~{fragments :: offerContainer}"></div>
+</main>
+</body>
+</html>

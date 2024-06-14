@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+
+<body>
+<div class="container mt-5" layout:fragment="content">
+    <div class="row">
+        <!-- User Profile Section -->
+        <div class="col-md-6">
+            <h3 class="text-center">User Profile</h3>
+            <form th:action="@{/profile}" th:object="${customer}" method="post">
+                <div class="form-group">
+                    <label for="username">Username (Email)</label>
+                    <input type="text" id="username" th:value="${customer.email}" class="form-control" disabled>
+                    <small class="form-text text-muted">You cannot change your email address.</small>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" th:field="*{password}" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone</label>
+                    <input type="text" id="phone" th:field="*{phone}" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="city">City</label>
+                    <select id="city" th:field="*{city.id}" class="form-control">
+                        <option th:each="city : ${cities}" th:value="${city.id}" th:text="${city.cityName}"></option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="address">Address</label>
+                    <input type="text" id="address" th:field="*{address}" class="form-control">
+                </div>
+                <div class="form-group text-center">
+                    <button type="submit" class="btn btn-primary">Update</button>
+                </div>
+            </form>
+            <form id="logoutForm" action="/auth/logout" method="post">
+                <button type="submit" class="btn btn-secondary ml-2">Logout</button>
+            </form>
+        </div>
+
+        <div class="col-md-6">
+            <h3 class="text-center">Order History</h3>
+            <div th:if="${orders != null}">
+                <div th:each="order : ${orders}" class="card mb-3 order-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Order #<span th:text="${order.id}"></span></h5>
+                        <p class="card-text">Order Time: <span th:text="${#temporals.format(order.orderTime, 'dd/MM/yyyy HH:mm:ss')}"></span></p>
+                        <p class="card-text">Estimated Delivery Time: <span th:text="${#temporals.format(order.estimatedDeliveryTime, 'dd/MM/yyyy HH:mm:ss')}"></span></p>
+                        <p class="card-text">Actual Delivery Time: <span th:text="${#temporals.format(order.actualDeliveryTime, 'dd/MM/yyyy HH:mm:ss')}"></span></p>
+                        <p class="card-text">Delivery Address: <span th:text="${order.deliveryAddress}"></span></p>
+                        <p class="card-text">Delivery Price: $<span th:text="${order.deliveryPrice}"></span></p>
+                        <p class="card-text">Total Price: $<span th:text="${order.finalPrice}"></span></p>
+                        <p class="card-text">Items:</p>
+                        <ul class="list-unstyled">
+                            <li th:each="itemOrder : ${order.itemOrders}">
+                                <span th:text="${itemOrder.item.name}"></span> - $<span th:text="${itemOrder.item.price}"></span>
+                            </li>
+                        </ul>
+                        <p class="card-text">Status History:</p>
+                        <ul class="list-unstyled">
+                            <li th:each="statusHistory : ${order.statusHistories}">
+                                <span th:text="${statusHistory.status.status}"></span> - <span th:text="${#temporals.format(statusHistory.time, 'dd/MM/yyyy HH:mm:ss')}"></span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div th:if="${orders == null or #lists.isEmpty(orders)}">
+                <h5 class="text-center">No orders found.</h5>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

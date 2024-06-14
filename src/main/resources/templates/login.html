@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<body>
+
+<div class="container mt-5" layout:fragment="content">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="offer-container">
+        <h3 class="text-center offer-title">Login</h3>
+        <form th:action="@{/auth/login}" th:object="${customerRequest}" method="post">
+          <div class="form-group offer-item">
+            <div class="form-group offer-item" th:if="${message != null}">
+              <p th:text="${message}" class="text-danger">User don't exist</p>
+            </div>
+            <label for="email">Email</label>
+            <input type="text" id="email" th:field="*{email}" class="form-control" required>
+            <p th:each="error: ${#fields.errors('email')}"
+               th:text="${error}">Validation error</p>
+          </div>
+          <div class="form-group offer-item">
+            <label for="password">Password</label>
+            <input type="password" id="password" th:field="*{password}" class="form-control" required>
+            <p th:each="error: ${#fields.errors('password')}"
+               th:text="${error}">Validation error</p>
+          </div>
+          <div class="form-group text-center offer-item">
+            <button type="submit" class="btn btn-primary offer-action">Login</button>
+          </div>
+        </form>
+        <div class="text-center offer-item">
+          <a href="/register" class="text-white">Don't have an account? Register here</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

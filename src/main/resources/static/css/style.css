@@ -1,0 +1,171 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+}
+
+/* Header Styles */
+.top-bar {
+    background-color: black;
+    padding: 15px;
+}
+
+.top-bar .logo {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #f8f9fa;
+}
+
+.top-bar .nav-links .nav-link {
+    font-size: 1.1em;
+}
+
+.top-bar .checkout-container .btn-danger {
+    font-size: 1em;
+}
+
+.top-bar .checkout-image {
+    width: 50px;
+}
+
+.image-full-width {
+    aspect-ratio: 2.04;
+    object-fit: contain;
+    object-position: center;
+    width: 100%;
+}
+
+/* Main Container Styles */
+.main-content {
+    background-color: #560000;
+    padding: 20px;
+    border-radius: 10px;
+    margin: 0;
+    width: 100%;
+}
+
+/* Footer Styles */
+.footer {
+    background-color: black;
+}
+
+/* Item Card Styles */
+.item-card {
+    background-color: white;
+    border-radius: 50px;
+    width: 350px;  /* Fixed width */
+    height: 350px;  /* Fixed height */
+    margin: auto;
+}
+
+.item-card .card-body {
+    text-align: center;
+}
+
+.item-card .item-image {
+    border-top-left-radius: 50px;
+    border-top-right-radius: 50px;
+    max-height: 150px;  /* Limit image height */
+    object-fit: cover;  /* Ensure image covers the area */
+}
+
+.item-card .item-name {
+    font-size: 1.25em;
+    font-weight: bold;
+}
+
+.item-card .item-description {
+    font-size: 1em;
+}
+
+.item-card .item-price {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.btn-add-to-cart {
+    background-color: #007bff;
+    border: none;
+    color: white;
+}
+
+.btn-add-to-cart:hover {
+    background-color: #0056b3;
+}
+
+.hero-image-smaller {
+    max-width: 100%;
+    height: auto;
+}
+
+.offer-container {
+    background-color: #560000;
+    color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+
+.offer-title {
+    text-align: center;
+    font-size: 1.5em;
+    margin-bottom: 20px;
+}
+
+.offer-item {
+    background-color: #000;
+    color: #fff;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 20px;
+    margin-right: 10px; /* Added margin */
+    margin-left: 10px; /* Added margin */
+}
+
+.offer-content {
+    margin-bottom: 15px;
+}
+
+.offer-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+.offer-action {
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+}
+
+.offer-action:hover {
+    background-color: #0056b3;
+}
+
+/* Form Styles */
+.offer-container form .form-group {
+    margin-bottom: 15px;
+}
+
+.offer-container form label {
+    font-weight: bold;
+}
+
+.offer-container form .form-control {
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.offer-container form .btn {
+    margin-top: 15px;
+    width: 100%;
+}
+
+.text-white {
+    color: #fff !important;
+}
